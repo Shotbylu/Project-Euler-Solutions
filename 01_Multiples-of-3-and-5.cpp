@@ -1,49 +1,29 @@
-#include <map>
-#include <set>
-#include <list>
-#include <cmath>
-#include <ctime>
-#include <deque>
-#include <queue>
-#include <stack>
-#include <string>
-#include <bitset>
-#include <cstdio>
-#include <limits>
-#include <vector>
-#include <climits>
-#include <cstring>
-#include <cstdlib>
-#include <fstream>
-#include <numeric>
-#include <sstream>
 #include <iostream>
-#include <algorithm>
-#include <unordered_map>
 
 using namespace std;
 
+// Function to compute the sum of multiples of a given number up to a limit
+unsigned long long sum_of_multiples(int multiple, int limit) {
+    long long count = (limit - 1) / multiple;
+    return (multiple * count * (count + 1)) / 2;
+}
 
-int main(){
-    int t;
-    cin >> t;
-       
-    while(t--)
-    {
-        int n;
-        cin >> n;               
-       
-        unsigned long long sum3, sum5, sum15;
-        unsigned long long num3 = 3, num5 = 5, num15 = 15, i;
-        
-        unsigned long long vals[3] = {3, 5, 15};
-        
-        for(int i=0; i<3; i++)
-        {
-            long long x = (n-1)/vals[i];
-            vals[i] = ((vals[i]*x*(x+1))/2);            
-        }
-        cout<<(vals[0]+vals[1]-vals[2])<<endl;
+int main() {
+    int test_cases;
+    cin >> test_cases;
+
+    while (test_cases--) {
+        int limit;
+        cin >> limit;
+
+        // Calculate the sum of multiples of 3, 5, and subtract the intersection (15)
+        unsigned long long sum3 = sum_of_multiples(3, limit);
+        unsigned long long sum5 = sum_of_multiples(5, limit);
+        unsigned long long sum15 = sum_of_multiples(15, limit);
+
+        // Result is the sum of multiples of 3 and 5, minus the overlap
+        cout << (sum3 + sum5 - sum15) << endl;
     }
+
     return 0;
 }
