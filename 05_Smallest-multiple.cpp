@@ -1,64 +1,38 @@
-#include <map>
-#include <set>
-#include <list>
-#include <cmath>
-#include <ctime>
-#include <deque>
-#include <queue>
-#include <stack>
-#include <string>
-#include <bitset>
-#include <cstdio>
-#include <limits>
-#include <vector>
-#include <climits>
-#include <cstring>
-#include <cstdlib>
-#include <fstream>
-#include <numeric>
-#include <sstream>
 #include <iostream>
-#include <algorithm>
-#include <unordered_map>
+#include <vector>
 
 using namespace std;
 
-bool IsPrime(int n)
-{
-    for(int i=2; i<=sqrt(n); )
-    {
-        if(n % i == 0) return false;
-        
-        i += (i==2) ? 1 : 2;
+bool IsPrime(int n) {
+    if (n < 2) return false;
+    if (n == 2 || n == 3) return true;
+    if (n % 2 == 0) return false;
+
+    for (int i = 3; i * i <= n; i += 2) {
+        if (n % i == 0) return false;
     }
     return true;
 }
 
-int main()
-{
+int main() {
     int t;
     cin >> t;
     
-    while(t--)
-    {
-        long long int n, ans=1;
-        cin>>n;
-       
-        for(long long int i=2; i<=n; )
-        {
-            if(IsPrime(i))
-            {
-                long long int prod = pow(i, 1);
-                
-                for(long long int j=2; pow(i, j) <= n; j++)
-                {
-                    prod = pow(i, j);                    
+    while (t--) {
+        long long n, result = 1;
+        cin >> n;
+
+        for (long long i = 2; i <= n; i += (i == 2 ? 1 : 2)) {
+            if (IsPrime(i)) {
+                long long power = i;
+                while (power * i <= n) {
+                    power *= i;
                 }
-                ans *= prod;
+                result *= power;
             }
-            i += (i==2) ? 1 : 2;
         }
-        cout << ans << endl;        
+        cout << result << endl;
     }
+    
     return 0;
 }
